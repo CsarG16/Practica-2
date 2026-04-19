@@ -1,0 +1,97 @@
+@model Practica_2.Models.CursoFilterViewModel
+
+@{
+    ViewData["Title"] = "Catálogo de Cursos";
+}
+
+<div class="container mt-4">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h1 class="display-4 fw-bold text-primary">Portal Académico</h1>
+            <p class="lead text-muted">Explora nuestra oferta académica y prepárate para el éxito.</p>
+        </div>
+    </div>
+
+    <!-- Filtros Section -->
+    <div class="card shadow-sm border-0 mb-5 bg-light">
+        <div class="card-body p-4">
+            <form asp-action="Index" method="get" class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label asp-for="Nombre" class="form-label fw-semibold">Nombre del Curso</label>
+                    <input asp-for="Nombre" class="form-control" placeholder="Buscar por nombre..." />
+                </div>
+                <div class="col-md-2">
+                    <label asp-for="MinCreditos" class="form-label fw-semibold">Min. Créditos</label>
+                    <input asp-for="MinCreditos" type="number" class="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <label asp-for="MaxCreditos" class="form-label fw-semibold">Max. Créditos</label>
+                    <input asp-for="MaxCreditos" type="number" class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <label asp-for="Horario" class="form-label fw-semibold">Desde las (Horario)</label>
+                    <input asp-for="Horario" type="time" class="form-control" />
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-primary shadow-sm">
+                        <i class="bi bi-search"></i> Filtrar
+                    </button>
+                </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger small"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Catálogo de Cards -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @if (!Model.Cursos.Any())
+        {
+            <div class="col-12 text-center py-5">
+                <div class="alert alert-info">No se encontraron cursos activos con esos criterios.</div>
+            </div>
+        }
+        else
+        {
+            @foreach (var item in Model.Cursos)
+            {
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                        <div class="card-header bg-primary text-white py-3">
+                            <span class="badge bg-light text-primary mb-2">@item.Codigo</span>
+                            <h5 class="card-title mb-0 fw-bold">@item.Nombre</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3">
+                                <span><i class="bi bi-mortarboard"></i> Créditos:</span>
+                                <span class="fw-bold text-dark">@item.Creditos</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-3">
+                                <span><i class="bi bi-clock"></i> Horario:</span>
+                                <span class="text-muted">@item.HorarioInicio.ToString(@"hh\:mm") - @item.HorarioFin.ToString(@"hh\:mm")</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-people"></i> Cupo:</span>
+                                <span class="badge rounded-pill bg-info text-dark">@item.CupoMaximo alumnos</span>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-top-0 pb-4 d-grid">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary rounded-pill">
+                                Ver Detalles e Inscribirse
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<style>
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+    .transition {
+        transition: all 0.3s ease;
+    }
+</style>

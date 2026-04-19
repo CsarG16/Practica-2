@@ -1,0 +1,64 @@
+@model Practica_2.Models.Curso
+
+@{
+    ViewData["Title"] = "Detalle del Curso";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white p-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0">@Model.Nombre</h2>
+                        <span class="badge bg-warning text-dark fs-5">@Model.Codigo</span>
+                    </div>
+                </div>
+                <div class="card-body p-5">
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-muted">Créditos Universitarios</div>
+                        <div class="col-sm-8 fw-bold fs-5">@Model.Creditos puntos</div>
+                    </div>
+                    <hr />
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-muted">Horario de Clases</div>
+                        <div class="col-sm-8 fs-5">
+                            <i class="bi bi-calendar-event me-2"></i>
+                            @Model.HorarioInicio.ToString(@"hh\:mm") - @Model.HorarioFin.ToString(@"hh\:mm")
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-muted">Cupo Disponible</div>
+                        <div class="col-sm-8 fs-5">
+                            <i class="bi bi-person-check me-2"></i>
+                            @Model.CupoMaximo Alumnos
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-warning mt-4 d-flex align-items-center" role="alert">
+                      <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                      <div>
+                        Asegúrate de no tener conflictos de horario antes de inscribirte.
+                      </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light p-4 text-center">
+                    <div class="d-flex gap-3 justify-content-center">
+                        <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill">
+                            Volver al Catálogo
+                        </a>
+                        
+                        <!-- El botón de inscripción se implementará en la Pregunta 3 -->
+                        <form asp-controller="Matriculas" asp-action="Inscribir" method="post">
+                            <input type="hidden" name="cursoId" value="@Model.Id" />
+                            <button type="submit" class="btn btn-success px-5 rounded-pill shadow">
+                                <i class="bi bi-plus-circle me-1"></i> Inscribirse Ahora
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
