@@ -14,6 +14,22 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Sign
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
+
+// --- INICIO CONFIGURACIÓN PREGUNTA 4 (REDIS Y SESIÓN) ---
+builder.Services.AddStackExchangeRedisCache(options => {
+    // Usamos el nombre de conexión que pide la evaluación
+    options.Configuration = builder.Configuration.GetConnectionString("RedisConnection") ?? "localhost:6379";
+});
+
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.AddHttpContextAccessor(); // Para leer la sesión desde el _Layout
+// --- FIN CONFIGURACIÓN PREGUNTA 4 ---
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -41,7 +57,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -49,6 +64,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// --- MIDDLEWARE DE SESIÓN (Debe ir después de Routing y antes de Authorization) ---
+app.UseSession(); 
 
 app.UseAuthorization();
 
