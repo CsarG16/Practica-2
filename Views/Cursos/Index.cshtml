@@ -70,8 +70,21 @@
                                 <span class="text-muted">@item.HorarioInicio.ToString(@"hh\:mm") - @item.HorarioFin.ToString(@"hh\:mm")</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <span><i class="bi bi-people"></i> Cupo:</span>
-                                <span class="badge rounded-pill bg-info text-dark">@item.CupoMaximo alumnos</span>
+                                <span><i class="bi bi-people"></i> Vacantes:</span>
+                                @{
+                                    var dict = ViewBag.InscritosDict as Dictionary<int, int>;
+                                    int inscritos = dict != null && dict.ContainsKey(item.Id) ? dict[item.Id] : 0;
+                                    int disponibles = item.CupoMaximo - inscritos;
+                                }
+
+                                @if (disponibles <= 0)
+                                {
+                                    <span class="badge rounded-pill bg-danger">Agotado</span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill bg-success">@disponibles disponibles</span>
+                                }
                             </div>
                         </div>
                         <div class="card-footer bg-white border-top-0 pb-4 d-grid">
