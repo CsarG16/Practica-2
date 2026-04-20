@@ -30,4 +30,7 @@ public class Curso
     public TimeSpan HorarioFin { get; set; }
 
     public bool Activo { get; set; } = true;
+    
+    // Relación: Un curso tiene muchas matrículas
+    public ICollection<Matricula> Matriculas { get; set; } = new List<Matricula>();
 }

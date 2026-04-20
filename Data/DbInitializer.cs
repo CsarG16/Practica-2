@@ -37,7 +37,7 @@ public static class DbInitializer
                 EmailConfirmed = true 
             };
             
-            var result = await userManager.CreateAsync(adminUser, "Admin123");
+            var result = await userManager.CreateAsync(adminUser, "Admin123!");
             if (result.Succeeded)
             {
                 // Buscamos el rol de nuevo para asegurar que el ID esté en el contexto actual

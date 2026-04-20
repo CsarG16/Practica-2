@@ -36,6 +36,15 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+
+                        @if (User.IsInRole("Coordinador"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-danger fw-bold" asp-controller="Coordinador" asp-action="Index">
+                                    <i class="bi bi-shield-lock me-1"></i> Panel Coordinador
+                                </a>
+                            </li>
+                        }
                         
                         @if (lastId != null && !string.IsNullOrEmpty(lastName))
                         {
