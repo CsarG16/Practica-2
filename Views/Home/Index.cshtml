@@ -1,8 +1,32 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row align-items-center justify-content-center min-vh-75 mt-5">
+    <div class="col-lg-8 text-center">
+        <h1 class="display-4 fw-bold text-primary mb-3">¡Bienvenido al Portal Académico!</h1>
+        <p class="lead text-muted mb-4">
+            Estimado profesor, esta es la presentación de la Práctica 2 del curso de Programación I. 
+        </p>
+
+        <div class="card shadow-sm border-0 bg-light mb-5 text-start">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-bold text-dark"><i class="bi bi-info-circle me-2 text-info"></i>Resumen de Funcionalidades Implementadas</h5>
+                <hr>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>(Preguntas 1 y 2):</strong> Catálogo de cursos funcionales con filtros, búsquedas y diseño responsive.</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>(Pregunta 3):</strong> Lógica de matrículas con validación de cupos máximos y solapamiento de horarios en memoria.</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i><strong>(Pregunta 4):</strong> Optimización de rendimiento usando Caché y Estado de Sesión en Redis (Redislabs).</li>
+                    <li><i class="bi bi-check-circle-fill text-success me-2"></i><strong>(Pregunta 5):</strong> Panel de administración para Coordinadores protegido con roles Identity (ABM de cursos y gestión de estados de matrícula).</li>
+                </ul>
+            </div>
+        </div>
+
+        <a href="https://github.com/CsarG16/Practica-2#readme" target="_blank" class="btn btn-primary btn-lg shadow-sm rounded-pill px-5 me-3">
+            <i class="bi bi-github me-2"></i>Ver el README
+        </a>
+        <a asp-controller="Cursos" asp-action="Index" class="btn btn-outline-secondary btn-lg shadow-sm rounded-pill px-5">
+            <i class="bi bi-journal-bookmark me-2"></i>Ir al Catálogo
+        </a>
+    </div>
 </div>
